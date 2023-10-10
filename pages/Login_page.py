@@ -1,8 +1,10 @@
 import time
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from base.base_class import Base
+from utilities.logger import Logger
 
 
 class Login_page(Base):
@@ -19,7 +21,9 @@ class Login_page(Base):
         self.driver = driver     # добавления дополнительных атрибутов
 
 
+
     # Locators - локаторы
+
 
 
     user_name = "//input[@id='user-name']"
@@ -28,7 +32,9 @@ class Login_page(Base):
     main_word = "//span[@class='title']"
 
 
+
     # Getters - это метод возвращающий значение некоего свойства класса,  а сеттер(set) соответственно то что устанавливает свойство класса
+
 
 
     def get_user_name(self):
@@ -52,7 +58,9 @@ class Login_page(Base):
     print("Main_word OK")
 
 
+
     # Actions - действия, Chains - цепочка
+
 
 
     def input_user_name(self, user_name):
@@ -71,22 +79,25 @@ class Login_page(Base):
         print("Click login_button")
 
 
+
     # Methods - Вызываем методы
 
 
+    
     def authorization(self):
-        """Метод authorization вызывает все методы выше"""
-        self.driver.get(self.base_url)
-        self.driver.maximize_window()
-        self.get_current_url()
-        time.sleep(2)
-        self.input_user_name(self.list_login)
-        time.sleep(2)
-        self.input_password(self.list_password)
-        time.sleep(2)
-        self.click_login_button()
-        self.assert_word(self.get_main_word(), "Products") # value_word - значение на странице, result - то, что мы ожидает
-
+        with allure.step("Authorization"):
+            Logger.add_start_step(method="authorization")
+            self.driver.get(self.base_url)
+            self.driver.maximize_window()
+            self.get_current_url()
+            time.sleep(0.1)
+            self.input_user_name(self.list_login)
+            time.sleep(0.1)
+            self.input_password(self.list_password)
+            time.sleep(0.1)
+            self.click_login_button()
+            self.assert_word(self.get_main_word(), "Products") # value_word - значение на странице, result - то, что мы ожидает
+            Logger.add_end_step(url=self.driver.current_url, method="authorization")
 
 
 

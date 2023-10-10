@@ -2,6 +2,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from base.base_class import Base
+from utilities.logger import Logger
+import allure
+
 
 
 class Payment_page(Base):
@@ -15,7 +18,9 @@ class Payment_page(Base):
         self.driver = driver     # добавления дополнительных атрибутов
 
 
+
     # Locators - локаторы
+
 
 
     finish_button = "//button[@id='finish']"
@@ -25,13 +30,16 @@ class Payment_page(Base):
     # Getters - это метод возвращающий значение некоего свойства класса,  а сеттер(set) соответственно то что устанавливает свойство класса
 
 
+
     def get_finish_button(self):
         """Метод get_finish_button возвращает нам переменную finish_button"""
         return WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.finish_button)))
     print("Payment_page, get_finish_button OK")
 
 
+
     # Actions - действия, Chains - цепочка
+
 
 
     def click_finish_button(self):
@@ -40,14 +48,18 @@ class Payment_page(Base):
         print("Payment_page, click_finish_button OK")
 
 
+
     # Methods - Вызываем методы
 
 
+
     def payment(self):
-        """Метод payment вызывает все методы выше"""
-        self.get_current_url()
-        self.click_finish_button()
-        self.get_screenshot()
+        with allure.step("Payment"):
+            Logger.add_start_step(method="payment")
+            self.get_current_url()
+            self.click_finish_button()
+            self.get_screenshot()
+            Logger.add_end_step(url=self.driver.current_url, method="payment")
 
 
 

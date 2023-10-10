@@ -1,9 +1,12 @@
 import time
+import allure
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from base.base_class import Base
+from utilities.logger import Logger
+
 
 
 class Main_page(Base):
@@ -17,7 +20,7 @@ class Main_page(Base):
         self.driver = driver     # добавления дополнительных атрибутов
 
 
-    # Locators - локаторы
+    # Locators - локаторы о
 
 
     select_product_1 = "//button[@id='add-to-cart-sauce-labs-backpack']"
@@ -31,12 +34,14 @@ class Main_page(Base):
     link_about = "//a[@id='about_sidebar_link']"
 
 
+
     # Getters - это метод возвращающий значение некоего свойства класса,  а сеттер(set) соответственно то что устанавливает свойство класса
+
 
 
     def get_select_product_1(self):
         """Метод get_select_product_1 возвращает нам переменную select_product_1"""
-        return WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, self.select_product_1)))
+        return WebDriverWait(self.driver, 2).until(EC.element_to_be_clickable((By.XPATH, self.select_product_1)))
     print("Main_page, Select_product_1 OK")
 
     def get_select_product_2(self):
@@ -80,7 +85,9 @@ class Main_page(Base):
     print("Main_page, get_link_about OK")
 
 
+
     # Actions - действия, Chains - цепочка
+
 
 
     def click_select_product_1(self):
@@ -143,57 +150,68 @@ class Main_page(Base):
         print("Main_page, click_link_about OK")
 
 
+
     # Methods - Вызываем методы
 
 
+
     def select_products_1(self):
-        self.get_current_url()
-        time.sleep(2)
-        self.click_select_product_1()
-        time.sleep(2)
-        self.click_cart()
+        with allure.step("Select products 1"):
+            self.get_current_url()
+            time.sleep(0.2)
+            self.click_select_product_1()
+            time.sleep(0.2)
+            self.click_cart()                
 
     def select_products_2(self):
-        self.get_current_url()
-        time.sleep(2)
-        self.click_select_product_2()
-        time.sleep(2)
-        self.click_cart()
+        with allure.step("Select products 2"):
+            self.get_current_url()
+            time.sleep(2)
+            self.click_select_product_2()
+            time.sleep(2)
+            self.click_cart()
 
     def select_products_3(self):
-        self.get_current_url()
-        time.sleep(2)
-        self.click_select_product_3()
-        time.sleep(2)
-        self.click_cart()
+        with allure.step("Select products 3"):
+            self.get_current_url()
+            time.sleep(2)
+            self.click_select_product_3()
+            time.sleep(2)
+            self.click_cart()
 
     def select_products_4(self):
-        self.get_current_url()
-        time.sleep(2)
-        self.click_select_product_4()
-        time.sleep(2)
-        self.click_cart()
+        with allure.step("Select products 4"):
+            self.get_current_url()
+            time.sleep(2)
+            self.click_select_product_4()
+            time.sleep(2)
+            self.click_cart()
 
     def select_products_5(self):
-        self.get_current_url()
-        time.sleep(2)
-        self.click_select_product_5()
-        time.sleep(2)
-        self.click_cart()
+        with allure.step("Select products 5"):
+            self.get_current_url()
+            time.sleep(2)
+            self.click_select_product_5()
+            time.sleep(2)
+            self.click_cart()
 
     def select_products_6(self):
-        self.get_current_url()
-        time.sleep(2)
-        self.click_select_product_6()
-        time.sleep(2)
-        self.click_cart()
+        with allure.step("Select products 6"):
+            self.get_current_url()
+            time.sleep(2)
+            self.click_select_product_6()
+            time.sleep(2)
+            self.click_cart()
 
 
     def select_menu_about(self):
-        self.get_current_url()
-        self.click_menu()
-        self.click_link_about()
-        self.assert_url("https://saucelabs.com/")
+        with allure.step("Select menu about"):
+            Logger.add_start_step(method="select_menu_about")
+            self.get_current_url()
+            self.click_menu()
+            self.click_link_about()
+            self.assert_url("https://saucelabs.com/")
+            Logger.add_end_step(url=self.driver.current_url, method="select_menu_about")
 
 
 

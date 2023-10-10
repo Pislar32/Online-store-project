@@ -1,9 +1,11 @@
 import time
-
+from utilities.logger import Logger
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from base.base_class import Base
+import allure
+
 
 
 class Client_information_page(Base):
@@ -17,7 +19,9 @@ class Client_information_page(Base):
         self.driver = driver     # добавления дополнительных атрибутов
 
 
+
     # Locators - локаторы
+
 
 
     first_name = "//input[@id='first-name']"
@@ -28,6 +32,7 @@ class Client_information_page(Base):
 
 
     # Getters - это метод возвращающий значение некоего свойства класса,  а сеттер(set) соответственно то что устанавливает свойство класса
+
 
 
     def get_first_name(self):
@@ -51,7 +56,9 @@ class Client_information_page(Base):
     print("get_continue_button OK")
 
 
+
     # Actions - действия, Chains - цепочка
+
 
 
     def input_first_name(self, first_name):
@@ -75,20 +82,24 @@ class Client_information_page(Base):
         print("click_continue_button OK")
 
 
+
     # Methods - Вызываем методы
 
 
+
     def input_information(self):
-        """Метод input_information вызывает все методы выше"""
-        self.get_current_url()
-        self.input_first_name("Александр")
-        time.sleep(2)
-        self.input_last_name("Пислар")
-        time.sleep(2)
-        self.input_postal_code("+79003625050")
-        time.sleep(2)
-        self.click_continue_button()
-        self.get_screenshot()
+        with allure.step("Input information"):
+            Logger.add_start_step(method="input_information")
+            self.get_current_url()
+            self.input_first_name("Александр")
+            time.sleep(0.2)
+            self.input_last_name("Пислар")
+            time.sleep(0.2)
+            self.input_postal_code("+79003625050")
+            time.sleep(0.2)
+            self.click_continue_button()
+            self.get_screenshot()
+            Logger.add_end_step(url=self.driver.current_url, method="input_information" )
 
 
 
