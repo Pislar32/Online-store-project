@@ -20,9 +20,7 @@ def test_buy_product_1(set_group):
 
     """Импорт класса Login_page"""
     login = Login_page(driver)
-    """Импорт метода из Login_page"""
     login.authorization()
-    print("Login page OK")
 
     """Импорт класса Main_page"""
     mp = Main_page(driver)
