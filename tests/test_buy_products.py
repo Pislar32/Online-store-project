@@ -88,7 +88,7 @@ def test_buy_product_2(set_group):
     driver.quit()
 
 
-@allure.description("Test buy product 3") # это некая аннотация, что в отчете было удобно читать и понимать о чем речь
+@allure.description("Test buy product 3") # это некая аннотация, чтоб в отчете было удобно читать и понимать о чем речь
 @pytest.mark.run(order=3) # очередность запуска тестов
 def test_buy_product_3(set_group):
     options = webdriver.ChromeOptions()
